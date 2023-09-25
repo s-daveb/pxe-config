@@ -1,0 +1,47 @@
+#!ipxe
+# vim: set ft=sh :
+
+set server_name host0
+set my_http http://${server_name}:6080
+set netboot_url http://boot.netboot.xyz
+
+echo =======================================
+echo ::::. Begin autoexec.ipxe script! .::::
+echo =======================================
+echo
+sleep 1
+
+echo Querying DHCP
+
+:retry_dhcp
+	dhcp net0 ||  goto retry_dhcp
+	isset ${dns} || goto retry_dhcp
+
+echo net0/ip: ${net0/ip}
+echo dns: ${dns}
+echo gateway: ${gateway}
+echo
+
+iseq ${platform} efi && goto is_efi || goto not_efi
+
+:is_efi
+echo Loading UEFI netboot.xyz
+sleep 2
+#|| chain --autofree ${netboot_url}
+chain --autofree ${my_http}/images/netboot.xyz.efi  || goto failed
+
+:not_efi
+echo Loading PCBIOS netboot.xyz
+sleep 2
+chain --autofree ${my_http}/images/netboot.xyz.kpxe  || goto failed
+
+:failed
+echo
+echo ================================
+echo .:::: !! Netboot failure!! ::::.
+echo ================================
+echo
+sleep 5
+prompt Press any key to drop to iPXE shell...
+shell
+

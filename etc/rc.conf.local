@@ -1,0 +1,10 @@
+
+lighttpd_enable="YES"
+lighttpd_instances="pxe"
+lighttpd_pxe_conf="/usr/local/etc/lighttpd-pxe.conf"
+
+# for PXE boots
+dnsmasq_enable="YES"
+tftpd_enable="YES"
+tftpd_flags="-v -l -s -u nobody -p /netboot"
+

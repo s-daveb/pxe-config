@@ -1,0 +1,7 @@
+
+netboot/*.efi
+netboot/*.lkrn
+netboot/*.kpxe
+netboot/*.pxe
+
+netboot/images/*
