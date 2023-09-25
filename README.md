@@ -30,6 +30,7 @@ Before you begin, ensure you have the following prerequisites:
 ## Repository Contents
 
 - **etc/dnsmaqs-dhcp.conf**: DNSMasq configuration file for DHCP and TFTP boot.
+- **etc/lighttpd-pxe.conf**: Lighttpd configuration file to provide PXE binaries over HTTP.
 - **etc/rc.conf.local**: Example `rc.conf` file for enabling network booting on FreeBSD.
 - **download-ipxe-netboot.sh**: Shell script to download iPXE and Netboot.xyz binaries.
 
@@ -43,7 +44,7 @@ Before you begin, ensure you have the following prerequisites:
 
 2. Install the following packages `dnsmasq` , `tftpd-hpa`
    ```shell
-   pkg install dnsmasq tftp
+   pkg install dnsmasq tftp lighttpd
    # optional:
    pkg install ipxe 
    # go to /usr/local/share/ipxe for ipxe binaries
